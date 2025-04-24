@@ -1,5 +1,5 @@
 import type { FormProps } from 'antd';
-import { Button, Form, Input, Radio, Space, Image } from 'antd';
+import { Button, Form, Input, Radio, Space } from 'antd';
 
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -25,7 +25,7 @@ const onFinishFailed: FormProps<FieldType>['onFinishFailed'] = (errorInfo) => {
 
 export default function EditCourse({ id }: { id?: string }) {
   const navigate = useNavigate();
-  const [coverFile, setCoverFile] = useState<string | null>(null);
+  const [setCoverFile] = useState<string | null>(null);
 
   const onFinish: FormProps<FieldType>['onFinish'] = (values) => {
     console.log('🚀 ~ CreateCourse ~ values:', values);
@@ -96,6 +96,7 @@ export default function EditCourse({ id }: { id?: string }) {
         rules={[{ required: true, message: '请上传课程封面' }]}
       >
         <ImageUpload
+          //@ts-ignore
           onChange={(file) => setCoverFile(file)}
           coverImage={data.coverImage}
         />

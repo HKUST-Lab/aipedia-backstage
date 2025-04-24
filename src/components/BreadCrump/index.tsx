@@ -1,9 +1,7 @@
 import { Breadcrumb as AntdBreadcrumb } from 'antd';
-import { useMatches, Link, useMatch, useLocation } from 'react-router-dom';
+import { useMatch } from 'react-router-dom';
 
 export default function Breadcrumb() {
-  const location = useLocation();
-
   const isList = useMatch('/course');
   const isCreate = useMatch('/course/create');
   const isEdit = useMatch('/course/edit/:id');

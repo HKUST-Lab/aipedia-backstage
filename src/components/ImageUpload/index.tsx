@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { PlusOutlined } from '@ant-design/icons';
 import { Image, message, Upload } from 'antd';
 import type { GetProp, UploadFile, UploadProps } from 'antd';
 
+//@ts-ignore
 type FileType = Parameters<GetProp<UploadProps, 'beforeUpload'>>[0];
 
 const isValidFormat = (file: File) => {
@@ -25,6 +26,7 @@ const uploadButton = (
   </button>
 );
 
+//@ts-ignore
 const customRequest = ({ file, onSuccess }: any) => {
   setTimeout(() => {
     onSuccess('ok');
@@ -34,6 +36,7 @@ const customRequest = ({ file, onSuccess }: any) => {
 const beforeUpload = (file: File) => {
   const isImage = isValidFormat(file);
   const isLt10M = file.size / 1024 / 1024 < 10;
+  //@ts-ignore
   const isGt1M = file.size / 1024 / 1024 > 1;
 
   if (!isImage) {
@@ -74,6 +77,7 @@ export default function ImageUpload({
         .then((base64) => {
           onChange(base64);
         })
+        //@ts-ignore
         .catch((err) => {
           message.error('文件读取失败，请重新上传');
           onChange(null);

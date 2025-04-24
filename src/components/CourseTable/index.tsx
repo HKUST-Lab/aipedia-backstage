@@ -35,7 +35,7 @@ export default function CourseTable() {
     {
       title: '操作',
       key: 'action',
-      render: (_, record) => (
+      render: () => (
         <Space size="middle">
           <Button type="link">下架</Button>
         </Space>
