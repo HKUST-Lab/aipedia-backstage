@@ -11,14 +11,6 @@ const isValidFormat = (file: File) => {
   return validTypes.includes(file.type);
 };
 
-const getBase64 = (file: File): Promise<string> =>
-  new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => resolve(reader.result as string);
-    reader.onerror = (error) => reject(error);
-  });
-
 const uploadButton = (
   <button style={{ border: 0, background: 'none' }} type="button">
     <PlusOutlined />
