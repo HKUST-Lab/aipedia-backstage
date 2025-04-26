@@ -2,7 +2,7 @@ import axios from 'axios';
 
 // 创建实例
 const request = axios.create({
-  baseURL: 'http://54.169.231.27:7888', // 后端地址
+  baseURL: import.meta.env.VITE_API_BASE_URL,
   timeout: 5000, // 请求超时设置
 });
 
