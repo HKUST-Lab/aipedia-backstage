@@ -26,21 +26,28 @@ export default function EditCourse({
   const [form] = Form.useForm();
 
   const onFinish: FormProps<Course>['onFinish'] = (values) => {
-    if (courseDetail?.id) {
-      updateCourse(courseDetail?.id, {
-        name_simplified: values.name_simplified,
-        name_traditional: values.name_traditional,
-        name_english: values.name_english,
-        cover_image: coverFile,
-        description_simplified: values.description_simplified,
-        description_traditional: values.description_traditional,
-        description_english: values.description_english,
-        status: values.status,
-      });
-    }
+    updateCourse(courseDetail?.id, {
+      name_simplified: values.name_simplified,
+      name_traditional: values.name_traditional,
+      name_english: values.name_english,
+      cover_image: coverFile,
+      description_simplified: values.description_simplified,
+      description_traditional: values.description_traditional,
+      description_english: values.description_english,
+      status: values.status,
+    });
+
+    navigate('/b/course');
   };
 
   useEffect(() => {
+    async function urlToFile(url: string): Promise<File> {
+      const filename = url.split('course_covers/').pop() || courseDetail?.id;
+      const mimeType = filename.split('.').pop();
+      const response = await fetch(url);
+      const blob = await response.blob();
+      return new File([blob], filename, { type: mimeType });
+    }
     if (courseDetail) {
       form.setFieldsValue({
         name_simplified: courseDetail.name_simplified,
@@ -51,6 +58,9 @@ export default function EditCourse({
         description_traditional: courseDetail.description_traditional,
         description_english: courseDetail.description_english,
         status: courseDetail.status,
+      });
+      urlToFile(courseDetail.cover_image).then((file) => {
+        setCoverFile(file);
       });
     }
   }, [courseDetail, form]);

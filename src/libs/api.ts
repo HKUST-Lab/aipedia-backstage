@@ -41,7 +41,7 @@ export function createCourse(data: any) {
 }
 
 // 更新课程
-export function updateCourse(id: string, data: any) {
+export function updateCourse(id: number, data: any) {
   return request.put(`/api/courses/${id}/`, data, {
     headers: {
       Authorization: `Token ${localStorage.getItem('auth_token')}`,

@@ -1,6 +1,7 @@
 export type CourseStatus = 'published' | 'unpublished';
 
 export type Course = {
+  id: number;
   name_simplified?: string;
   name_traditional?: string;
   name_english?: string;

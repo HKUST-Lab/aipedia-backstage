@@ -14,7 +14,6 @@ const onFinishFailed: FormProps<Course>['onFinishFailed'] = (errorInfo) => {
 
 export default function CreateCourse() {
   const navigate = useNavigate();
-  //@ts-ignore
   const [coverFile, setCoverFile] = useState<File | null>(null);
 
   const onFinish: FormProps<Course>['onFinish'] = (values) => {
@@ -26,7 +25,9 @@ export default function CreateCourse() {
       description_simplified: values.description_simplified,
       description_traditional: values.description_traditional,
       description_english: values.description_english,
-      status: 'unpublished',
+      status: values.status,
+    }).then(() => {
+      navigate('/b/course');
     });
   };
 
@@ -36,7 +37,7 @@ export default function CreateCourse() {
       labelCol={{ span: 8 }}
       wrapperCol={{ span: 16 }}
       style={{ maxWidth: 600 }}
-      initialValues={{ remember: true }}
+      initialValues={{ status: COURSE_STATUS.ONLINE }}
       onFinish={onFinish}
       onFinishFailed={onFinishFailed}
       autoComplete="off"
@@ -123,7 +124,7 @@ export default function CreateCourse() {
         name="status"
         rules={[{ required: true, message: '请选择课程状态' }]}
       >
-        <Radio.Group buttonStyle="solid" defaultValue={COURSE_STATUS.ONLINE}>
+        <Radio.Group buttonStyle="solid">
           <Radio.Button defaultChecked value={COURSE_STATUS.ONLINE}>
             上架
           </Radio.Button>

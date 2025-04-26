@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom';
 
-import { Tabs } from 'antd';
+import { Image, Tabs } from 'antd';
 import type { TabsProps } from 'antd';
 import EditCourse from '../components/EditCourse';
 import { useEffect, useState } from 'react';
@@ -14,7 +14,7 @@ export default function CourseDetail() {
   useEffect(() => {
     if (id) {
       getCourseDetail(id).then((res) => {
-        setCourseDetail(res[0].data);
+        setCourseDetail(res[res.length - 1].data);
       });
     }
   }, [id]);
@@ -29,7 +29,7 @@ export default function CourseDetail() {
   return (
     <div>
       <div style={{ display: 'flex', gap: '16px' }}>
-        {/* <Image width={160} height={90} src="/assets/cover.jpg" /> */}
+        <Image width={160} height={90} src={courseDetail?.cover_image} />
         <section>{courseDetail?.name_simplified}</section>
       </div>
       <div>
