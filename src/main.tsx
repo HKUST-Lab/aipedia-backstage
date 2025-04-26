@@ -47,7 +47,7 @@ export const router = createBrowserRouter([
   },
 ]);
 
-login('test', '123');
+login();
 
 const themeConfig = {
   token: {
