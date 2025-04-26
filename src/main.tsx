@@ -16,12 +16,16 @@ import CreateCourse from './routes/CreateCourse.tsx';
 export const router = createBrowserRouter([
   {
     path: '/',
+    element: <Navigate to="/b" replace />,
+  },
+  {
+    path: '/b',
     element: <DashboardLayout />,
     handle: { breadcrumb: '课程管理' },
     children: [
       {
         index: true,
-        element: <Navigate to="/course" replace />,
+        element: <Navigate to="course" replace />,
       },
       {
         path: 'course',

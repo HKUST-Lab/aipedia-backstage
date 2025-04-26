@@ -3,7 +3,8 @@ import { Outlet, useNavigate } from 'react-router-dom';
 import Breadcrumb from '../components/BreadCrump';
 import { UserOutlined } from '@ant-design/icons';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { login } from '../libs/api';
 
 const { Sider, Content } = Layout;
 
@@ -27,10 +28,23 @@ export default function DashboardLayout() {
     navigate('/course');
   };
 
+  useEffect(() => {
+    login('test', '123');
+  }, []);
+
   return (
     <Layout style={{ minHeight: '100vh' }}>
       <Sider theme="dark" width={200}>
-        <div className="text-white text-l p-5 pl-8 text-xl">AI Edu 工作台</div>
+        <div
+          style={{
+            color: 'white',
+            fontSize: '20px',
+            fontWeight: 'bold',
+            padding: '10px 20px',
+          }}
+        >
+          AI Edu 工作台
+        </div>
         <Menu
           theme="dark"
           onClick={onClick}
@@ -41,11 +55,11 @@ export default function DashboardLayout() {
         />
       </Sider>
       <Layout>
-        <div className="h-[60px] bg-white"></div>
-        <div className="m-4">
+        <div style={{ height: '60px', backgroundColor: 'white' }}></div>
+        <div style={{ margin: '16px' }}>
           <Breadcrumb />
         </div>
-        <Content className="p-4 bg-white ml-4">
+        <Content style={{ padding: '16px', backgroundColor: 'white' }}>
           <Outlet />
         </Content>
       </Layout>

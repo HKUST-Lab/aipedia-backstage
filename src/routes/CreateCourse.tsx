@@ -23,7 +23,6 @@ const onFinishFailed: FormProps<FieldType>['onFinishFailed'] = (errorInfo) => {
 
 export default function CreateCourse() {
   const navigate = useNavigate();
-  //@ts-ignore
   const [coverFile, setCoverFile] = useState<string | null>(null);
 
   const onFinish: FormProps<FieldType>['onFinish'] = (values) => {
