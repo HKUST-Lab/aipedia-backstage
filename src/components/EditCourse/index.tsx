@@ -5,63 +5,61 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { COURSE_STATUS } from '../../libs/constant';
 import ImageUpload from '../ImageUpload';
-import { createCourse } from '../../libs/api';
+import { updateCourse } from '../../libs/api';
+import { Course } from '../../libs/type';
 
 const { TextArea } = Input;
 
-type FieldType = {
-  simplifiedName?: string;
-  traditionalName?: string;
-  englishName?: string;
-  simplifiedDescription?: string;
-  traditionalDescription?: string;
-  englishDescription?: string;
-  coverImage?: string;
-  status?: string;
-};
-
-const onFinishFailed: FormProps<FieldType>['onFinishFailed'] = (errorInfo) => {
+const onFinishFailed: FormProps<Course>['onFinishFailed'] = (errorInfo) => {
   console.log('Failed:', errorInfo);
 };
 
-export default function EditCourse({ id }: { id?: string }) {
+export default function EditCourse({
+  courseDetail,
+}: {
+  id?: string;
+  courseDetail?: any;
+}) {
   const navigate = useNavigate();
   const [coverFile, setCoverFile] = useState<File | null>(null);
 
-  const onFinish: FormProps<FieldType>['onFinish'] = (values) => {
-    createCourse({
-      name_simplified: values.simplifiedName,
-      name_traditional: values.traditionalName,
-      name_english: values.englishName,
-      cover_image: coverFile,
-      description_simplified: values.simplifiedDescription,
-      description_traditional: values.traditionalDescription,
-      description_english: values.englishDescription,
-      status: values.status,
-    });
+  const [form] = Form.useForm();
+
+  const onFinish: FormProps<Course>['onFinish'] = (values) => {
+    if (courseDetail?.id) {
+      updateCourse(courseDetail?.id, {
+        name_simplified: values.name_simplified,
+        name_traditional: values.name_traditional,
+        name_english: values.name_english,
+        cover_image: coverFile,
+        description_simplified: values.description_simplified,
+        description_traditional: values.description_traditional,
+        description_english: values.description_english,
+        status: values.status,
+      });
+    }
   };
 
   useEffect(() => {
-    if (id) {
-      console.log(id);
+    if (courseDetail) {
+      form.setFieldsValue({
+        name_simplified: courseDetail.name_simplified,
+        name_traditional: courseDetail.name_traditional,
+        name_english: courseDetail.name_english,
+        cover_image: courseDetail.cover_image,
+        description_simplified: courseDetail.description_simplified,
+        description_traditional: courseDetail.description_traditional,
+        description_english: courseDetail.description_english,
+        status: courseDetail.status,
+      });
     }
-  }, [id]);
-
-  const data = {
-    simplifiedName: 'AI教育',
-    traditionalName: 'AI教育',
-    englishName: 'AI Education',
-    coverImage:
-      'https://img.88tph.com/87/c9/h8m8dbbfEeyEcQAWPgWqLw-0.jpg!/fw/700/watermark/url/L3BhdGgvbG9nby5wbmc/align/center/repeat/true',
-    simplifiedDescription: 'AI教育',
-    status: COURSE_STATUS.OFFLINE,
-  };
+  }, [courseDetail, form]);
 
   return (
     <Form
       name="basic"
       style={{ maxWidth: 500 }}
-      initialValues={data}
+      form={form}
       onFinish={onFinish}
       onFinishFailed={onFinishFailed}
       autoComplete="off"
@@ -76,45 +74,45 @@ export default function EditCourse({ id }: { id?: string }) {
         </Space>
       </Form.Item>
 
-      <Form.Item<FieldType>
+      <Form.Item<Course>
         label="课程名称"
-        name="simplifiedName"
+        name="name_simplified"
         rules={[{ required: true, message: '请输入课程中文简体名称' }]}
       >
         <Input maxLength={50} />
       </Form.Item>
 
-      <Form.Item<FieldType>
+      <Form.Item<Course>
         label="课程名称"
-        name="traditionalName"
+        name="name_traditional"
         rules={[{ required: true, message: '请输入课程中文繁体名称' }]}
       >
         <Input maxLength={50} />
       </Form.Item>
 
-      <Form.Item<FieldType>
+      <Form.Item<Course>
         label="课程名称"
-        name="englishName"
+        name="name_english"
         rules={[{ required: true, message: '请输入课程英文名称' }]}
       >
         <Input maxLength={50} />
       </Form.Item>
 
-      <Form.Item<FieldType>
+      <Form.Item<Course>
         label="课程封面"
-        name="coverImage"
+        name="cover_image"
         rules={[{ required: true, message: '请上传课程封面' }]}
       >
         <ImageUpload
           //@ts-ignore
           onChange={(file) => setCoverFile(file)}
-          coverImage={data.coverImage}
+          coverImage={courseDetail?.cover_image}
         />
       </Form.Item>
 
-      <Form.Item<FieldType>
+      <Form.Item<Course>
         label="课程简介"
-        name="simplifiedDescription"
+        name="description_simplified"
         rules={[{ required: false, message: '请输入课程简介' }]}
       >
         <TextArea
@@ -124,12 +122,12 @@ export default function EditCourse({ id }: { id?: string }) {
         />
       </Form.Item>
 
-      <Form.Item<FieldType>
+      <Form.Item<Course>
         label="课程状态"
         name="status"
         rules={[{ required: true, message: '请选择课程状态' }]}
       >
-        <Radio.Group buttonStyle="solid" defaultValue={COURSE_STATUS.ONLINE}>
+        <Radio.Group buttonStyle="solid">
           <Radio.Button defaultChecked value={COURSE_STATUS.ONLINE}>
             上架
           </Radio.Button>

@@ -32,9 +32,17 @@ export function getCourseDetail(id: string): Promise<any[]> {
 }
 // 创建课程
 export function createCourse(data: any) {
-  console.log('🚀 ~ createCourse ~ data:', data);
-
   return request.post('/api/courses/', data, {
+    headers: {
+      Authorization: `Token ${localStorage.getItem('auth_token')}`,
+      'Content-Type': 'multipart/form-data',
+    },
+  });
+}
+
+// 更新课程
+export function updateCourse(id: string, data: any) {
+  return request.put(`/api/courses/${id}/`, data, {
     headers: {
       Authorization: `Token ${localStorage.getItem('auth_token')}`,
       'Content-Type': 'multipart/form-data',

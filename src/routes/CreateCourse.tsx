@@ -5,20 +5,10 @@ import { Button, Form, Input, Radio, Space } from 'antd';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { createCourse } from '../libs/api';
+import { Course } from '../libs/type';
 const { TextArea } = Input;
 
-type FieldType = {
-  simplifiedName?: string;
-  traditionalName?: string;
-  englishName?: string;
-  simplifiedDescription?: string;
-  traditionalDescription?: string;
-  englishDescription?: string;
-  coverImage?: string;
-  status?: string;
-};
-
-const onFinishFailed: FormProps<FieldType>['onFinishFailed'] = (errorInfo) => {
+const onFinishFailed: FormProps<Course>['onFinishFailed'] = (errorInfo) => {
   console.log('Failed:', errorInfo);
 };
 
@@ -27,16 +17,15 @@ export default function CreateCourse() {
   //@ts-ignore
   const [coverFile, setCoverFile] = useState<File | null>(null);
 
-  const onFinish: FormProps<FieldType>['onFinish'] = (values) => {
-    console.log('🚀 ~ CreateCourse ~ values:', values);
+  const onFinish: FormProps<Course>['onFinish'] = (values) => {
     createCourse({
-      name_simplified: values.simplifiedName,
-      name_traditional: values.traditionalName,
-      name_english: values.englishName,
+      name_simplified: values.name_simplified,
+      name_traditional: values.name_traditional,
+      name_english: values.name_english,
       cover_image: coverFile,
-      description_simplified: values.simplifiedDescription,
-      description_traditional: values.traditionalDescription,
-      description_english: values.englishDescription,
+      description_simplified: values.description_simplified,
+      description_traditional: values.description_traditional,
+      description_english: values.description_english,
       status: 'unpublished',
     });
   };
@@ -61,41 +50,41 @@ export default function CreateCourse() {
         </Space>
       </Form.Item>
 
-      <Form.Item<FieldType>
+      <Form.Item<Course>
         label="课程名称"
-        name="simplifiedName"
+        name="name_simplified"
         rules={[{ required: true, message: '请输入课程中文简体名称' }]}
       >
         <Input maxLength={50} />
       </Form.Item>
 
-      <Form.Item<FieldType>
+      <Form.Item<Course>
         label="课程名称"
-        name="traditionalName"
+        name="name_traditional"
         rules={[{ required: true, message: '请输入课程中文繁体名称' }]}
       >
         <Input maxLength={50} />
       </Form.Item>
 
-      <Form.Item<FieldType>
+      <Form.Item<Course>
         label="课程名称"
-        name="englishName"
+        name="name_english"
         rules={[{ required: true, message: '请输入课程英文名称' }]}
       >
         <Input maxLength={50} />
       </Form.Item>
 
-      <Form.Item<FieldType>
+      <Form.Item<Course>
         label="课程封面"
-        name="coverImage"
+        name="cover_image"
         rules={[{ required: true, message: '请上传课程封面' }]}
       >
         <ImageUpload onChange={(file) => setCoverFile(file)} />
       </Form.Item>
 
-      <Form.Item<FieldType>
+      <Form.Item<Course>
         label="课程简介"
-        name="simplifiedDescription"
+        name="description_simplified"
         rules={[{ required: false, message: '请输入课程简介' }]}
       >
         <TextArea
@@ -105,9 +94,9 @@ export default function CreateCourse() {
         />
       </Form.Item>
 
-      <Form.Item<FieldType>
+      <Form.Item<Course>
         label="课程简介"
-        name="traditionalDescription"
+        name="description_traditional"
         rules={[{ required: false, message: '请输入课程简介' }]}
       >
         <TextArea
@@ -117,9 +106,9 @@ export default function CreateCourse() {
         />
       </Form.Item>
 
-      <Form.Item<FieldType>
+      <Form.Item<Course>
         label="课程简介"
-        name="englishDescription"
+        name="description_english"
         rules={[{ required: false, message: '请输入课程简介' }]}
       >
         <TextArea
@@ -129,7 +118,7 @@ export default function CreateCourse() {
         />
       </Form.Item>
 
-      <Form.Item<FieldType>
+      <Form.Item<Course>
         label="课程状态"
         name="status"
         rules={[{ required: true, message: '请选择课程状态' }]}
