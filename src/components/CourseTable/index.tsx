@@ -16,7 +16,7 @@ export default function CourseTable() {
       dataIndex: 'name',
       key: 'name',
       render: (text: string, record: DataType) => {
-        return <Link to={`/course/edit/${record.id}`}>{text}</Link>;
+        return <Link to={`/b/course/edit/${record.id}`}>{text}</Link>;
       },
     },
     {

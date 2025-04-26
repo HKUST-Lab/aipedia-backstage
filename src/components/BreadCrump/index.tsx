@@ -2,9 +2,9 @@ import { Breadcrumb as AntdBreadcrumb } from 'antd';
 import { useMatch } from 'react-router-dom';
 
 export default function Breadcrumb() {
-  const isList = useMatch('/course');
-  const isCreate = useMatch('/course/create');
-  const isEdit = useMatch('/course/edit/:id');
+  const isList = useMatch('/b/course');
+  const isCreate = useMatch('/b/course/create');
+  const isEdit = useMatch('/b/course/edit/:id');
 
   const items = [{ title: '课程管理' }] as { title: string; href?: string }[];
 

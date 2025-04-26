@@ -43,7 +43,7 @@ export default function CreateCourse() {
     >
       <Form.Item label={null}>
         <Space>
-          <Button onClick={() => navigate('/course')}>返回</Button>
+          <Button onClick={() => navigate('/b/course')}>返回</Button>
           <Button type="primary" htmlType="submit">
             提交
           </Button>

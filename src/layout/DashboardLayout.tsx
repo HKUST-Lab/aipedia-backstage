@@ -25,7 +25,7 @@ export default function DashboardLayout() {
 
   const onClick: MenuProps['onClick'] = (e) => {
     setCurrent(e.key);
-    navigate('/course');
+    navigate('course');
   };
 
   useEffect(() => {

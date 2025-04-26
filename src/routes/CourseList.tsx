@@ -5,7 +5,7 @@ export default function CourseList() {
   const navigate = useNavigate();
   return (
     <div>
-      <Button onClick={() => navigate('/course/create')} type="primary">
+      <Button onClick={() => navigate('create')} type="primary">
         新建课程
       </Button>
       <CourseTable />

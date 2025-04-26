@@ -19,7 +19,7 @@ export default function CourseDetail() {
   ];
   return (
     <div>
-      <div className="flex gap-2">
+      <div style={{ display: 'flex', gap: '16px' }}>
         {/* <Image width={160} height={90} src="/assets/cover.jpg" /> */}
         <section>daddsjndsk</section>
       </div>
