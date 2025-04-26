@@ -61,7 +61,7 @@ export default function ImageUpload({
   onChange,
   coverImage,
 }: {
-  onChange: (file: string | null) => void;
+  onChange: (file: File | null) => void;
   coverImage?: string;
 }) {
   const [fileList, setFileList] = useState<UploadFile[]>([]);
@@ -72,16 +72,10 @@ export default function ImageUpload({
     newFileList = newFileList.slice(-1); // 只保留一个
     setFileList(newFileList);
 
-    if (info.file.status === 'done' && info.file.originFileObj) {
-      getBase64(info.file.originFileObj)
-        .then((base64) => {
-          onChange(base64);
-        })
-        //@ts-ignore
-        .catch((err) => {
-          message.error('文件读取失败，请重新上传');
-          onChange(null);
-        });
+    if (info.file.status === 'done' || info.file.status === 'uploading') {
+      if (info.file.originFileObj) {
+        onChange(info.file.originFileObj); // 直接传File对象！
+      }
     } else if (info.file.status === 'removed') {
       onChange(null);
     }

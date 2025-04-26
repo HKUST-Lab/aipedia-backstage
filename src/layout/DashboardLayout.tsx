@@ -3,8 +3,7 @@ import { Outlet, useNavigate } from 'react-router-dom';
 import Breadcrumb from '../components/BreadCrump';
 import { UserOutlined } from '@ant-design/icons';
 
-import { useEffect, useState } from 'react';
-import { login } from '../libs/api';
+import { useState } from 'react';
 
 const { Sider, Content } = Layout;
 
@@ -27,10 +26,6 @@ export default function DashboardLayout() {
     setCurrent(e.key);
     navigate('course');
   };
-
-  useEffect(() => {
-    login('test', '123');
-  }, []);
 
   return (
     <Layout style={{ minHeight: '100vh' }}>

@@ -1,1 +1,1 @@
-export type CourseStatus = 1 | 2;
+export type CourseStatus = 'published' | 'unpublished';

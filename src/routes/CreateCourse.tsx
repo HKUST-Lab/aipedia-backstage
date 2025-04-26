@@ -4,6 +4,7 @@ import type { FormProps } from 'antd';
 import { Button, Form, Input, Radio, Space } from 'antd';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { createCourse } from '../libs/api';
 const { TextArea } = Input;
 
 type FieldType = {
@@ -24,10 +25,20 @@ const onFinishFailed: FormProps<FieldType>['onFinishFailed'] = (errorInfo) => {
 export default function CreateCourse() {
   const navigate = useNavigate();
   //@ts-ignore
-  const [coverFile, setCoverFile] = useState<string | null>(null);
+  const [coverFile, setCoverFile] = useState<File | null>(null);
 
   const onFinish: FormProps<FieldType>['onFinish'] = (values) => {
     console.log('🚀 ~ CreateCourse ~ values:', values);
+    createCourse({
+      name_simplified: values.simplifiedName,
+      name_traditional: values.traditionalName,
+      name_english: values.englishName,
+      cover_image: coverFile,
+      description_simplified: values.simplifiedDescription,
+      description_traditional: values.traditionalDescription,
+      description_english: values.englishDescription,
+      status: 'unpublished',
+    });
   };
 
   return (

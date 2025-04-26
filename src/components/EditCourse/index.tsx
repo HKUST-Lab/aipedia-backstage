@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { COURSE_STATUS } from '../../libs/constant';
 import ImageUpload from '../ImageUpload';
+import { createCourse } from '../../libs/api';
 
 const { TextArea } = Input;
 
@@ -25,10 +26,19 @@ const onFinishFailed: FormProps<FieldType>['onFinishFailed'] = (errorInfo) => {
 
 export default function EditCourse({ id }: { id?: string }) {
   const navigate = useNavigate();
-  const [setCoverFile] = useState<string | null>(null);
+  const [coverFile, setCoverFile] = useState<File | null>(null);
 
   const onFinish: FormProps<FieldType>['onFinish'] = (values) => {
-    console.log('🚀 ~ CreateCourse ~ values:', values);
+    createCourse({
+      name_simplified: values.simplifiedName,
+      name_traditional: values.traditionalName,
+      name_english: values.englishName,
+      cover_image: coverFile,
+      description_simplified: values.simplifiedDescription,
+      description_traditional: values.traditionalDescription,
+      description_english: values.englishDescription,
+      status: values.status,
+    });
   };
 
   useEffect(() => {

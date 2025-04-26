@@ -3,6 +3,10 @@ import type { TableProps } from 'antd';
 import { CourseStatus } from '../../libs/type';
 import { COURSE_STATUS } from '../../libs/constant';
 import { Link } from 'react-router-dom';
+import { getCourseList } from '../../libs/api';
+import { useEffect, useState } from 'react';
+import dayjs from 'dayjs';
+
 interface DataType {
   id: string;
   name: string;
@@ -10,11 +14,19 @@ interface DataType {
   createTime: string;
 }
 export default function CourseTable() {
+  const [courseList, setCourseList] = useState<DataType[]>([]);
+
+  useEffect(() => {
+    getCourseList().then((res) => {
+      setCourseList(res);
+    });
+  }, []);
+
   const columns: TableProps<DataType>['columns'] = [
     {
       title: '课程名称',
-      dataIndex: 'name',
-      key: 'name',
+      dataIndex: 'name_simplified',
+      key: 'name_simplified',
       render: (text: string, record: DataType) => {
         return <Link to={`/b/course/edit/${record.id}`}>{text}</Link>;
       },
@@ -29,8 +41,11 @@ export default function CourseTable() {
     },
     {
       title: '创建时间',
-      dataIndex: 'createTime',
-      key: 'createTime',
+      dataIndex: 'created_at',
+      key: 'created_at',
+      render: (text: string) => {
+        return dayjs(text).format('YYYY-MM-DD');
+      },
     },
     {
       title: '操作',
@@ -42,19 +57,6 @@ export default function CourseTable() {
       ),
     },
   ];
-  const data: DataType[] = [
-    {
-      id: '1',
-      name: '课程1',
-      status: 1,
-      createTime: '2021-01-01',
-    },
-    {
-      id: '2',
-      name: '课程2',
-      status: 2,
-      createTime: '2021-01-01',
-    },
-  ];
-  return <Table<DataType> columns={columns} dataSource={data} />;
+
+  return <Table<DataType> columns={columns} dataSource={courseList} />;
 }

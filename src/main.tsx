@@ -12,6 +12,7 @@ import DashboardLayout from './layout/DashboardLayout.tsx';
 import CourseList from './routes/CourseList.tsx';
 import CourseDetail from './routes/CouresDetail.tsx';
 import CreateCourse from './routes/CreateCourse.tsx';
+import { login } from './libs/api.ts';
 
 export const router = createBrowserRouter([
   {
@@ -45,6 +46,8 @@ export const router = createBrowserRouter([
     ],
   },
 ]);
+
+login('test', '123');
 
 const themeConfig = {
   token: {
