@@ -1,5 +1,5 @@
 import type { FormProps } from 'antd';
-import { Button, Form, Input, Radio, Space } from 'antd';
+import { Button, Form, Input, message, Radio, Space } from 'antd';
 
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -35,9 +35,9 @@ export default function EditCourse({
       description_traditional: values.description_traditional,
       description_english: values.description_english,
       status: values.status,
+    }).then(() => {
+      navigate('/b/course');
     });
-
-    navigate('/b/course');
   };
 
   useEffect(() => {
