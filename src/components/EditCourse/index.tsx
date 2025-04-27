@@ -1,5 +1,5 @@
 import type { FormProps } from 'antd';
-import { Button, Form, Input, message, Radio, Space } from 'antd';
+import { Button, Form, Input, Radio, Space } from 'antd';
 
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
