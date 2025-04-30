@@ -36,7 +36,10 @@ export default function CourseTable() {
       urlToFile(record?.cover_image).then((file) => {
         updateCourse(record?.id, {
           ...record,
-          status: COURSE_STATUS.OFFLINE,
+          status:
+            record?.status === COURSE_STATUS.ONLINE
+              ? COURSE_STATUS.OFFLINE
+              : COURSE_STATUS.ONLINE,
           cover_image: file,
         }).then(() => {
           getCourseList().then((res) => {
@@ -108,7 +111,7 @@ export default function CourseTable() {
           }}
           type="link"
         >
-          下架
+          {record.status === COURSE_STATUS.ONLINE ? '下架' : '上线'}
         </Button>
       ),
     },
@@ -118,12 +121,15 @@ export default function CourseTable() {
     <>
       <Table<Course> columns={columns} dataSource={courseList} />
       <Modal
-        title="Basic Modal"
+        title=""
         open={isModalOpen}
         onOk={handleOk}
         onCancel={handleCancel}
       >
-        <p>确定下架该课程吗？</p>
+        <p>
+          确定{record?.status === COURSE_STATUS.ONLINE ? '下架' : '上线'}
+          该课程吗？
+        </p>
       </Modal>
     </>
   );

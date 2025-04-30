@@ -52,7 +52,7 @@ export default function CreateCourse() {
       </Form.Item>
 
       <Form.Item<Course>
-        label="课程名称"
+        label="课程名称(简)"
         name="name_simplified"
         rules={[{ required: true, message: '请输入课程中文简体名称' }]}
       >
@@ -60,7 +60,7 @@ export default function CreateCourse() {
       </Form.Item>
 
       <Form.Item<Course>
-        label="课程名称"
+        label="课程名称(繁)"
         name="name_traditional"
         rules={[{ required: true, message: '请输入课程中文繁体名称' }]}
       >
@@ -68,7 +68,7 @@ export default function CreateCourse() {
       </Form.Item>
 
       <Form.Item<Course>
-        label="课程名称"
+        label="课程名称(英)"
         name="name_english"
         rules={[{ required: true, message: '请输入课程英文名称' }]}
       >
@@ -84,7 +84,7 @@ export default function CreateCourse() {
       </Form.Item>
 
       <Form.Item<Course>
-        label="课程简介"
+        label="课程简介(简)"
         name="description_simplified"
         rules={[{ required: false, message: '请输入课程简介' }]}
       >
@@ -96,7 +96,7 @@ export default function CreateCourse() {
       </Form.Item>
 
       <Form.Item<Course>
-        label="课程简介"
+        label="课程简介(繁)"
         name="description_traditional"
         rules={[{ required: false, message: '请输入课程简介' }]}
       >
@@ -108,7 +108,7 @@ export default function CreateCourse() {
       </Form.Item>
 
       <Form.Item<Course>
-        label="课程简介"
+        label="课程简介(英)"
         name="description_english"
         rules={[{ required: false, message: '请输入课程简介' }]}
       >
