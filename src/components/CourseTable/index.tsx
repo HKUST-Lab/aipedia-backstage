@@ -125,6 +125,8 @@ export default function CourseTable() {
         open={isModalOpen}
         onOk={handleOk}
         onCancel={handleCancel}
+        okText="确认"
+        cancelText="取消"
       >
         <p>
           确定{record?.status === COURSE_STATUS.ONLINE ? '下架' : '上线'}
